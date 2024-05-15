@@ -18,6 +18,11 @@ if (isset($_POST['username']) && isset($_POST['password'])){
 
     $usuario = validate($_POST($usuario)); 
     $contrasena = validate(($_POST($contrasena)));
-
+    if (empty($usuario)){
+        header("Location: Index.php?error = El Usuario Es Requerido");
+        exit();
+    }elseif (empty($usuario)){
+        header("Location: Index.php?error = El Usuario Es Requerido");
+        exit();
 }
-
+}
