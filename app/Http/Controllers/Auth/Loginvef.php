@@ -1,8 +1,16 @@
 <?php
-session_start();
-include('conexion.php');
 
-class login_admin extends Controller {
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+// session_start();
+// include('conexion.php');
+
+class LoginVef extends Controller {
 
     public function __invoke(Request $request): RedirectResponse|View {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
@@ -46,6 +54,28 @@ class login_admin extends Controller {
         } else {
             header("Location: Index.php");
             exit();
+        }
+    }
+    public function auth()
+    {
+        return redirect()->route('Auth.Login');
+    }
+    public function verify(Request $request)
+    {
+        return view('authentication.login');
+    }
+    public function LoginVerify(Request $request)
+    {
+        $request->validate([
+            'user' => 'required',
+            'pass' => 'required|min:5'
+        ],[
+            'user.required' => 'Se necesita el usuario',
+            'pass.required' => 'Se necesita la contraseña'
+        ]);
+
+        if ('Tobito28' == $request->user && '020710' == $request->pass) {
+            return redirect()->route('Admin.Dashboard');
         }
     }
 }
