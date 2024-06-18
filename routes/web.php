@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Loginvef;
 
 Route::get('/', [Loginvef::class, 'auth']);
-
 Route::prefix('auth')->group(function() {
     Route::get('/login', [Loginvef::class, 'verify'])->name('Auth.Login'); //Ruta = http://127.0.0.1:8000/auth/login
     Route::post('/login/verify', [Loginvef::class, 'LoginVerify'])->name('Auth.LoginVerify');
@@ -19,7 +18,7 @@ Route::prefix('admin')->group(function() {
 Route::prefix('user')->group(function() {
     Route::get('/history', [UserController::class, 'History'])->name('Admin.History'); //Ruta = http://127.0.0.1:8000/user/history
     Route::get('/sales', [UserController::class, 'Sales'])->name('Admin.Sales');
-});
+}
 
 
 
