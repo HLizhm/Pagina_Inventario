@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\Loginvef;
 
-Route::get('/', [Loginvef::class, 'auth']);
+Route::get('/', [LoginController::class, 'auth']);
 Route::prefix('auth')->group(function() {
-    Route::get('/login', [Loginvef::class, 'verify'])->name('Auth.Login'); //Ruta = http://127.0.0.1:8000/auth/login
-    Route::post('/login/verify', [Loginvef::class, 'LoginVerify'])->name('Auth.LoginVerify');
+    Route::get('/login', [LoginController::class, 'verify'])->name('Auth.Login'); //Ruta = http://127.0.0.1:8000/auth/login
+    Route::post('/login/verify', [LoginController::class, 'LoginVerify'])->name('Auth.LoginVerify');
 });
 Route::prefix('admin')->group(function() {
     Route::get('/dashboard', [AdminController::class, 'Panel'])->name('Admin.Dashboard'); //Ruta = http://127.0.0.1:8000/admin/dashboard
@@ -18,7 +18,7 @@ Route::prefix('admin')->group(function() {
 Route::prefix('user')->group(function() {
     Route::get('/history', [UserController::class, 'History'])->name('Admin.History'); //Ruta = http://127.0.0.1:8000/user/history
     Route::get('/sales', [UserController::class, 'Sales'])->name('Admin.Sales');
-}
+});
 
 
 
