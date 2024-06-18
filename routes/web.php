@@ -1,18 +1,24 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Loginvef;
 
 Route::get('/', [Loginvef::class, 'auth']);
+
 Route::prefix('auth')->group(function() {
     Route::get('/login', [Loginvef::class, 'verify'])->name('Auth.Login'); //Ruta = http://127.0.0.1:8000/auth/login
     Route::post('/login/verify', [Loginvef::class, 'LoginVerify'])->name('Auth.LoginVerify');
 });
-Route::middleware('auth')->group(function() {
-    Route::get('/dashboard', function() {
-        return view('administrator.panel');
-    })->name('Admin.Dashboard');
+Route::prefix('admin')->group(function() {
+    Route::get('/dashboard', [AdminController::class, 'Panel'])->name('Admin.Dashboard'); //Ruta = http://127.0.0.1:8000/admin/dashboard
+    Route::get('/add_bales', [AdminController::class, 'AddBales'])->name('Admin.AddBales');
+});
+Route::prefix('user')->group(function() {
+    Route::get('/history', [UserController::class, 'History'])->name('Admin.History'); //Ruta = http://127.0.0.1:8000/user/history
+    Route::get('/sales', [UserController::class, 'Sales'])->name('Admin.Sales');
 });
 
 
